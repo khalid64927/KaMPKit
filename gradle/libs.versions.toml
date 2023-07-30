@@ -10,6 +10,7 @@ compileSdk = "33"
 android-gradle-plugin = "7.4.2"
 ktlint-gradle = "11.4.2"
 gradle-versions = "0.47.0"
+kmm-compose-plugin = "1.4.3"
 
 compose = "1.4.3"
 composeCompiler = "1.4.7"
@@ -27,6 +28,8 @@ kotlinx-datetime = "0.4.0"
 ktor = "2.3.1"
 
 robolectric = "4.10.3"
+
+moko = "0.16.1"
 
 kermit = "2.0.0-RC3"
 
@@ -83,8 +86,14 @@ sqlDelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sq
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 touchlab-kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
 
+moko-core = {module = "dev.icerock.moko:mvvm-core", version.ref = "moko"}
+moko-compose = {module = "dev.icerock.moko:mvvm-compose", version.ref = "moko"}
+
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+
+moko-res = {module = "dev.icerock.moko:resources", version = "0.23.0"}
+moko-res-compose = {module = "dev.icerock.moko:resources-compose", version = "0.23.0"}
 
 [plugins]
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }

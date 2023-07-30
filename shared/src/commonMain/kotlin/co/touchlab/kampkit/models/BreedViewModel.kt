@@ -1,5 +1,6 @@
 package co.touchlab.kampkit.models
 
+import co.touchlab.kampkit.common.MokoViewModel
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Job
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 class BreedViewModel(
     private val breedRepository: BreedRepository,
     private val log: Logger
-) : ViewModel() {
+) : MokoViewModel() {
 
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
         MutableStateFlow(BreedViewState(isLoading = true))

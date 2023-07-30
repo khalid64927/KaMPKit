@@ -4,7 +4,7 @@ import app.cash.turbine.ReceiveTurbine
 import app.cash.turbine.test
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.mock.ClockMock
-import co.touchlab.kampkit.mock.DogApiMock
+import co.touchlab.kampkit.mock.AppApiInterfaceMock
 import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kampkit.models.BreedViewModel
 import co.touchlab.kampkit.models.BreedViewState
@@ -32,7 +32,7 @@ class BreedViewModelTest {
         Dispatchers.Default
     )
     private val settings = MapSettings()
-    private val ktorApi = DogApiMock()
+    private val ktorApi = AppApiInterfaceMock()
 
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())

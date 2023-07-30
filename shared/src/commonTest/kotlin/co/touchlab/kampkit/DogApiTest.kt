@@ -1,6 +1,9 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.ktor.DogApiImpl
+import co.touchlab.kampkit.common.Result
+import co.touchlab.kampkit.ktor.AppApiInterfaceImpl
+import co.touchlab.kampkit.network.ApiInputParams
+import co.touchlab.kampkit.network.KtorAppClient
 import co.touchlab.kampkit.response.BreedResult
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Logger
@@ -17,6 +20,7 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class DogApiTest {
     private val emptyLogger = Logger(
@@ -36,9 +40,13 @@ class DogApiTest {
                 headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
             )
         }
-        val dogApi = DogApiImpl(emptyLogger, engine)
 
-        val result = dogApi.getJsonFromApi()
+
+        val dogApi = AppApiInterfaceImpl(KtorAppClient(emptyLogger, engine), emptyLogger)
+
+        val result = dogApi.getDogBreeds(ApiInputParams.GET_ALL_BREEDS)
+        assertTrue(result is Result.Success)
+        val data = (result as Result.Success).data
         assertEquals(
             BreedResult(
                 mapOf(
@@ -47,7 +55,7 @@ class DogApiTest {
                 ),
                 "success"
             ),
-            result
+            data
         )
     }
 
@@ -59,10 +67,10 @@ class DogApiTest {
                 status = HttpStatusCode.NotFound
             )
         }
-        val dogApi = DogApiImpl(emptyLogger, engine)
+        val dogApi = AppApiInterfaceImpl(KtorAppClient(emptyLogger, engine), emptyLogger)
 
         assertFailsWith<ClientRequestException> {
-            dogApi.getJsonFromApi()
+            dogApi.getDogBreeds(ApiInputParams.GET_ALL_BREEDS)
         }
     }
 }

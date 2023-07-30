@@ -1,11 +1,14 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.ktor.DogApi
-import co.touchlab.kampkit.ktor.DogApiImpl
+import co.touchlab.kampkit.ktor.AppApiInterface
+import co.touchlab.kampkit.ktor.AppApiInterfaceImpl
 import co.touchlab.kampkit.models.BreedRepository
+import co.touchlab.kampkit.models.BreedViewModel
+import co.touchlab.kampkit.network.KtorAppClient
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
+import dev.icerock.moko.mvvm.compose.viewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.Clock
 import org.koin.core.KoinApplication
@@ -40,16 +43,28 @@ fun initKoin(appModule: Module): KoinApplication {
     return koinApplication
 }
 
+
+private val featureModule = module {
+    //viewModel { BreedViewModel(get(), get { org.koin.core.parameter.parametersOf("BreedViewModel") }) }
+}
+
 private val coreModule = module {
-    single {
+    single{
         DatabaseHelper(
             get(),
-            getWith("DatabaseHelper"),
+            getWith("DatsabaseHelper"),
             Dispatchers.Default
         )
     }
-    single<DogApi> {
-        DogApiImpl(
+
+    single {
+        KtorAppClient(
+            getWith("KtorAppClient"),
+            get()
+        )
+    }
+    single<AppApiInterface> {
+        AppApiInterfaceImpl(
             getWith("DogApiImpl"),
             get()
         )

@@ -1,9 +1,8 @@
-package co.touchlab.kampkit.android.ui
+package co.touchlab.kampkit.features.doglist
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,16 +24,12 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedViewModel
 import co.touchlab.kampkit.models.BreedViewState
@@ -46,7 +41,7 @@ fun MainScreen(
     viewModel: BreedViewModel,
     log: Logger
 ) {
-    val dogsState by viewModel.breedState.collectAsStateWithLifecycle()
+    val dogsState by viewModel.breedState.collectAsState()
     val scope = rememberCoroutineScope()
 
     MainScreenContent(
@@ -106,7 +101,8 @@ fun Empty() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(stringResource(R.string.empty_breeds))
+        //Text(stringResource(R.string.empty_breeds))
+        Text("")
     }
 }
 
@@ -164,21 +160,20 @@ fun FavoriteIcon(breed: Breed) {
             easing = FastOutSlowInEasing
         ), label = ""
     ) { fav ->
-        if (fav) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_favorite_border_24px),
-                contentDescription = stringResource(R.string.favorite_breed, breed.name)
-            )
-        } else {
-            Image(
-                painter = painterResource(id = R.drawable.ic_favorite_24px),
-                contentDescription = stringResource(R.string.unfavorite_breed, breed.name)
-            )
-        }
+        // if (fav) {
+        //     Image(
+        //         painter = painterResource(id = R.drawable.ic_favorite_border_24px),
+        //         contentDescription = stringResource(R.string.favorite_breed, breed.name)
+        //     )
+        // } else {
+        //     Image(
+        //         painter = painterResource(id = R.drawable.ic_favorite_24px),
+        //         contentDescription = stringResource(R.string.unfavorite_breed, breed.name)
+        //     )
+        // }
     }
 }
 
-@Preview
 @Composable
 fun MainScreenContentPreview_Success() {
     MainScreenContent(

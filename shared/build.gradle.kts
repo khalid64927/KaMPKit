@@ -5,7 +5,9 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.library")
+    id("org.jetbrains.compose")
     id("app.cash.sqldelight")
+    //id("dev.icerock.mobile.multiplatform-resources")
 }
 
 android {
@@ -46,6 +48,23 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
+                // Compose Multiplatform start
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.material3)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
+                // TODO: check this preview lib is failing
+                //implementation(compose.preview)
+
+                // Compose Multiplatform end
+                //implementation("media.kamel:kamel-image:0.6.0")
+
+                // moko resource
+                //implementation("dev.icerock.moko:resources:0.23.0")
+                //implementation("dev.icerock.moko:resources-compose:0.23.0")
+
                 implementation(libs.koin.core)
                 implementation(libs.coroutines.core)
                 implementation(libs.sqlDelight.coroutinesExt)
@@ -53,7 +72,17 @@ kotlin {
                 implementation(libs.multiplatformSettings.common)
                 implementation(libs.kotlinx.dateTime)
                 api(libs.touchlab.kermit)
+                api(libs.moko.core) // only ViewModel, EventsDispatcher, Dispatchers.UI
+                api(libs.moko.compose) // api mvvm-core, getViewModel for Compose Multiplatfrom
             }
+
+            // multiplatformResources {
+            //     multiplatformResourcesPackage = "org.example.library" // required
+            //     multiplatformResourcesClassName = "SharedRes" // optional, default MR
+            //     multiplatformResourcesVisibility = MRVisibility.Internal // optional, default Public
+            //     iosBaseLocalizationRegion = "en" // optional, default "en"
+            //     multiplatformResourcesSourceSet = "commonClientMain"  // optional, default "commonMain"
+            // }
         }
         val commonTest by getting {
             dependencies {
@@ -73,6 +102,7 @@ kotlin {
             }
         }
         val iosMain by getting {
+            dependsOn(commonMain)
             dependencies {
                 implementation(libs.sqlDelight.native)
                 implementation(libs.ktor.client.ios)

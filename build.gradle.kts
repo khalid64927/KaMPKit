@@ -9,6 +9,7 @@ plugins {
     kotlin("plugin.serialization") version libs.versions.kotlin.get() apply false
     id("app.cash.sqldelight") version libs.versions.sqlDelight.get() apply false
     id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
+    id("org.jetbrains.compose") version libs.versions.kmm.compose.plugin.get() apply false
 }
 
 allprojects {
@@ -17,6 +18,7 @@ allprojects {
         mavenCentral()
         maven("https://androidx.dev/storage/compose-compiler/repository/")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 

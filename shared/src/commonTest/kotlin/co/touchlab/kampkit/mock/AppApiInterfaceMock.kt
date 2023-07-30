@@ -1,19 +1,21 @@
 package co.touchlab.kampkit.mock
 
-import co.touchlab.kampkit.ktor.DogApi
+import co.touchlab.kampkit.common.Result
+import co.touchlab.kampkit.ktor.AppApiInterface
+import co.touchlab.kampkit.network.ApiInputParams
 import co.touchlab.kampkit.response.BreedResult
 
 // TODO convert this to use Ktor's MockEngine
-class DogApiMock : DogApi {
+class AppApiInterfaceMock : AppApiInterface {
     private var nextResult: () -> BreedResult = { error("Uninitialized!") }
     var calledCount = 0
         private set
 
-    override suspend fun getJsonFromApi(): BreedResult {
-        val result = nextResult()
-        calledCount++
-        return result
-    }
+    // override suspend fun getJsonFromApi(): BreedResult {
+    //     val result = nextResult()
+    //     calledCount++
+    //     return result
+    // }
 
     fun successResult(): BreedResult {
         val map = HashMap<String, List<String>>().apply {
@@ -29,5 +31,9 @@ class DogApiMock : DogApi {
 
     fun throwOnCall(throwable: Throwable) {
         nextResult = { throw throwable }
+    }
+
+    override suspend fun getDogBreeds(params: ApiInputParams): Result<BreedResult> {
+        TODO("Not yet implemented")
     }
 }
