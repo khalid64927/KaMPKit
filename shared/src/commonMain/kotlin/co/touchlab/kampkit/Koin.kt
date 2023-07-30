@@ -8,7 +8,6 @@ import co.touchlab.kampkit.network.KtorAppClient
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
-import dev.icerock.moko.mvvm.compose.viewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.Clock
 import org.koin.core.KoinApplication
@@ -24,6 +23,7 @@ fun initKoin(appModule: Module): KoinApplication {
     val koinApplication = startKoin {
         modules(
             appModule,
+            featureModule,
             platformModule,
             coreModule
         )
@@ -45,7 +45,7 @@ fun initKoin(appModule: Module): KoinApplication {
 
 
 private val featureModule = module {
-    //viewModel { BreedViewModel(get(), get { org.koin.core.parameter.parametersOf("BreedViewModel") }) }
+    factory{ BreedViewModel(get(), get { parametersOf("BreedViewModel") }) }
 }
 
 private val coreModule = module {

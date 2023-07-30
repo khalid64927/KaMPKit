@@ -55,7 +55,7 @@ kotlin {
                 implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                // TODO: check this preview lib is failing
+                // TODO: check this preview lib is fsailing
                 //implementation(compose.preview)
 
                 // Compose Multiplatform end
@@ -66,6 +66,7 @@ kotlin {
                 //implementation("dev.icerock.moko:resources-compose:0.23.0")
 
                 implementation(libs.koin.core)
+                implementation(libs.koin.compose)
                 implementation(libs.coroutines.core)
                 implementation(libs.sqlDelight.coroutinesExt)
                 implementation(libs.bundles.ktor.common)
@@ -94,6 +95,7 @@ kotlin {
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.sqlDelight.android)
                 implementation(libs.ktor.client.okHttp)
+                implementation(libs.compose.activity)
             }
         }
         val androidUnitTest by getting {

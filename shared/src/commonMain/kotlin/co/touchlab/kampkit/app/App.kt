@@ -4,16 +4,15 @@ import androidx.compose.runtime.Composable
 import co.touchlab.kampkit.common.ui.theme.KaMPKitTheme
 import co.touchlab.kampkit.features.doglist.MainScreen
 import co.touchlab.kampkit.models.BreedViewModel
-import dev.icerock.moko.mvvm.compose.getViewModel
-import dev.icerock.moko.mvvm.compose.viewModelFactory
+import co.touchlab.kermit.Logger
+import org.koin.compose.koinInject
 
 @Composable
-fun App (){
+fun App() {
+    val breedViewModel: BreedViewModel = koinInject()
+    val log: Logger = koinInject()
     KaMPKitTheme {
-        //val breedViewModel = getViewModel(Unit, viewModelFactory { BreedViewModel() })
-        //MainScreen()
-
-        // TODO:
+        MainScreen(breedViewModel, log)
     }
 
 }
